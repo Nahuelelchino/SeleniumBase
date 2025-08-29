@@ -2,6 +2,7 @@
  
 // Importaciones necesarias
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
  
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -71,7 +73,40 @@ public class BasePage {
 
 
 
+ public void write(String locator, String keysToSend){
+        Find(locator).clear();
+        Find(locator).sendKeys(keysToSend);
+    }
 
+
+//Select es un objeto de selenium que se utiliza para indicar que hay un selector en la pagina web donde tiene distintas funciones:
+
+// aqui pasamos el locator y encontramos el selector, y en este seleccionamos por valor Ejemplo: "Lunes, martes, miercoles"
+
+  public void selectFromDropdownByValue(String locator, String value){
+        Select dropdown = new Select(Find(locator));
+ 
+        dropdown.selectByValue(value);
+    }
+ 
+// aqui pasamos el locator y encontramos el selector, y en este seleccionamos por posición (0,1,2,3,4)
+    public void selectFromDropdownByIndex(String locator, Integer index){
+        Select dropdown = new Select(Find(locator));
+ 
+        dropdown.selectByIndex(index);
+    }
+ 
+
+
+//retornamos el tamaño del
+
+    public int dropdownSize(String locator){
+        Select dropdown = new Select(Find(locator));
+ 
+        List<WebElement> dropdownOptions = dropdown.getOptions();
+ 
+        return dropdownOptions.size();
+    }
 
 
 }
